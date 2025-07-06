@@ -1,28 +1,40 @@
 import admin from "firebase-admin";
-import path from "path";
-import { fileURLToPath } from "url";
-import fs from "fs";
+import dotenv from "dotenv";
 
-// Get __dirname in ES module scope
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+dotenv.config(); // Load env vars
 
-// Path to your service account JSON file in the server directory
-const serviceAccountPath = path.join(__dirname, "../ai-pair-firebase-adminsdk-fbsvc-2e875a1fb0.json");
+// Decode service account JSON from base64
+const base64 = process.env.FIREBASE_SERVICE_ACCOUNT_BASE64;
 
-// Read and parse the service account JSON
-const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, "utf8"));
+if (!base64) {
+  throw new Error("FIREBASE_SERVICE_ACCOUNT_BASE64 env variable is missing.");
+}
 
+let serviceAccount;
+
+try {
+  const json = Buffer.from(base64, "base64").toString("utf8");
+  serviceAccount = JSON.parse(json);
+} catch (error) {
+  console.error("Failed to decode Firebase service account:", error);
+  throw error;
+}
+
+// Initialize Firebase Admin SDK
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
   });
 }
 
+// Middleware to verify Firebase ID token
 export const verifyFirebaseToken = async (req, res, next) => {
   const authHeader = req.headers.authorization || "";
   const token = authHeader.replace("Bearer ", "");
-  if (!token) return res.status(401).json({ message: "No token provided" });
+
+  if (!token) {
+    return res.status(401).json({ message: "No token provided" });
+  }
 
   try {
     const decoded = await admin.auth().verifyIdToken(token);
