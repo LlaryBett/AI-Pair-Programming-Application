@@ -23,18 +23,29 @@ const startServer = async () => {
     const server = http.createServer(app);
     const { io, socketManager } = initializeSocket(server);
 
-    // Middleware
+    // Middleware to parse JSON
     app.use(express.json());
 
-    // ✅ Explicit CORS configuration
+    // ✅ CORS configuration
+    const allowedOrigins = [
+      "https://ai-pair-programming-application.vercel.app",
+      "http://localhost:5173" // Optional: local development
+    ];
+
     app.use(cors({
-      origin: process.env.CLIENT_URL || "http://localhost:5173",
+      origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error("Not allowed by CORS"));
+        }
+      },
       credentials: true,
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
       allowedHeaders: ['Content-Type', 'Authorization']
     }));
 
-    // ✅ Attach socket instance to each request
+    // Attach socket to every request
     app.use((req, res, next) => {
       req.io = io;
       req.socketManager = socketManager;
@@ -49,7 +60,7 @@ const startServer = async () => {
     app.use("/api/ai-chat", aiChatRoutes);
     app.use("/api/documents", documentRoutes);
 
-    // Error handler
+    // Error handler middleware
     app.use(errorHandler);
 
     // Start server
