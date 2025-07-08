@@ -2,7 +2,15 @@
 
 A revolutionary AI-powered collaborative coding platform that brings pair programming to the next level with real-time collaboration, intelligent AI assistance, and seamless team workflows.
 
-![AI Pair ++ Banner](https://via.placeholder.com/1200x400/4f46e5/ffffff?text=AI+Pair+%2B%2B)
+# AI Pair Programming ++
+
+AI-powered collaborative code editor with real-time syncing and Google authentication.
+
+## 📸 Screenshot
+
+![App Screenshot](https://raw.githubusercontent.com/LlaryBett/AI-Pair-Programming-Application/main/client/src/assets/Screenshot.png)
+
+
 
 ## ✨ Features
 
