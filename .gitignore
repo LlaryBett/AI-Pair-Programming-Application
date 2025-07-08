@@ -1,98 +1,64 @@
-# Dependencies
+# ========================
+# 🔧 General
+# ========================
 node_modules/
-/.pnp
-.pnp.js
+dist/
+build/
+*.log
+*.local
+*.env
 
-# Client and Server node_modules
+# ========================
+# 🛠️ Frontend (Vite/React)
+# ========================
 client/node_modules/
-server/node_modules/
+client/dist/
+client/.vite/
+client/.cache/
+client/coverage/
 
-# Testing
-/coverage
+# Don’t ignore public folder — needed for favicons, static assets, etc.
+# ⚠️ DO NOT ignore client/public/
+# DO NOT add `public/` or `/public` here
 
-# Production
-/build
-/dist
-
-# Environment variables
+# ========================
+# 🔐 Environment Files
+# ========================
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+!.env.example
 
-# Client and Server environment files
+# Client envs
 client/.env
-client/.env.local
-client/.env.development.local
-client/.env.test.local
-client/.env.production.local
+client/.env.* 
+
+# Server envs
 server/.env
-server/.env.local
-server/.env.development.local
-server/.env.test.local
-server/.env.production.local
+server/.env.*
 
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
+# ========================
+# 🖥️ Backend (Express/Node)
+# ========================
+server/node_modules/
+server/dist/
+server/coverage/
+server/*.log
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
+# Firebase/Secrets (if any)
+server/ai-pair-firebase-adminsdk-*.json
 
-# Optional npm cache directory
-.npm
+# ========================
+# 🧪 Testing
+# ========================
+coverage/
+*.test.js
+*.spec.js
 
-# Optional eslint cache
-.eslintcache
-
-# Microbundle cache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-
-# Optional REPL history
-.node_repl_history
-
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# parcel-bundler cache (https://parceljs.org/)
-.cache
-.parcel-cache
-
-# Next.js build output
-.next
-
-# Nuxt.js build / generate output
-.nuxt
-dist
-
-# Gatsby files
-.cache/
-public
-
-# Storybook build outputs
-.out
-.storybook-out
-
-# Temporary folders
-tmp/
-temp/
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# ========================
+# 🧹 Miscellaneous
+# ========================
+.vscode/
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
@@ -100,5 +66,15 @@ temp/
 *.sln
 *.sw?
 
-# OS generated files
-Thumbs.dbserver/ai-pair-firebase-adminsdk-fbsvc-2e875a1fb0.json
+# Optional REPL & npm/yarn/pnpm caches
+.npm/
+.pnp*
+.yarn-integrity
+.node_repl_history
+.rpt2_cache/
+.rts2_cache_*/
+*.tgz
+
+# Storybook (optional)
+.out/
+.storybook-out/
