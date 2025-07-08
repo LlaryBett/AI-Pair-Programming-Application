@@ -68,8 +68,8 @@ A revolutionary AI-powered collaborative coding platform that brings pair progra
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/yourusername/ai-pair-plus.git
-cd ai-pair-plus
+git clone https://github.com/LlaryBett/AI-Pair-Programming-Application.git
+cd ai-pair-++
 ```
 
 ### Backend Setup
